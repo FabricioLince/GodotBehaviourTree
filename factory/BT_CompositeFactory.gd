@@ -15,5 +15,7 @@ func create(data):
 func create_composite(Type, data):
 	var node = Type.new()
 	for c in data.children:
-		node.add_child(factory.create(c))
+		var child_node = factory.create(c)
+		if child_node:
+			node.add_child(child_node)
 	return node

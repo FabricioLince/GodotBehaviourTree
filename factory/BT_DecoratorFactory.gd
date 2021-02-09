@@ -20,7 +20,12 @@ func create(data):
 func create_decorator(Type, data):
 	var node = Type.new()
 	if data.children.size() > 0:
-		node.add_child(factory.create(data.children[0]))
+		var child_node = factory.create(data.children[0])
+		if child_node:
+			node.add_child(child_node)
+		else:
+			push_warning("Couldn't create decorator node")
+			return null
 	if data.children.size() > 1:
 		print("decorator children ", data.print(true, false))
 		for d in data.children:

@@ -1,16 +1,12 @@
 class_name BT_SetData
-extends BT_Data
+extends BT_Node
 
-export (String) var data_name
-export (bool) var indirect_name = false
-export (String) var data_value
-export (bool) var indirect_value = false
+export (Dictionary) var data_values
 
 func update():
-	if indirect_value:
-		set_value(data_name, data.get(data_value), indirect_name)
-		print("setting ", data_name, " = ", data_value , " = ", data.get(data_value))
-	else:
-		set_value(data_name, data_value, indirect_name)
-		print("setting ", data_name, " = ", data_value)
+	print("SetData ", data_values)
+	for data_name in data_values:
+		var value = BT_Data.evaluate(data_values[data_name], data)
+		data[data_name] = value
+		print("setting ", data_name, " = ", value)
 	set_success()

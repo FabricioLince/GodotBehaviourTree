@@ -17,14 +17,21 @@ func create(data) -> BT_Node:
 	for f in factories:
 		var node = f.create(data)
 		if node: return node
+	push_warning(data.name + " was not recognized as a BT_Node")
 	return null
 
 class ExtraFactory:
 	func create(data):
-		if data.name == "print":
-			return create_print(data)
-		if data.name.to_lower() == "script":
-			return create_run_script(data)
+		match data.name.to_lower():
+			"print":
+				return create_print(data)
+			"script":
+				return create_run_script(data)
+			"setdata":
+				return create_set_data(data)
+			"isdata":
+				return create_is_data(data)
+	
 	func create_print(data):
 		var node = BT_DebugPrint.new()
 		node.message = data.content
@@ -32,4 +39,12 @@ class ExtraFactory:
 	func create_run_script(data):
 		var node = BT_RunScript.new()
 		node.script_code = data.content
+		return node
+	func create_set_data(data):
+		var node = BT_SetData.new()
+		node.data_values = data.attributes
+		return node
+	func create_is_data(data):
+		var node = BT_IsData.new()
+		node.data_values = data.attributes
 		return node
