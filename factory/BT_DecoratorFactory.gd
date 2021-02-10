@@ -9,12 +9,16 @@ func create(data):
 	match data.name:
 		"Fail":
 			return create_decorator(BT_Fail, data)
+		"Succeed":
+			return create_decorator(BT_Succeed, data)
 		"Invert":
 			return create_decorator(BT_Invert, data)
 		"Repeat":
 			return create_repeat(data)
 		"RepeatUntil":
 			return create_repeat_until(data)
+		"MultiUpdate":
+			return create_multi_update(data)
 			
 
 func create_decorator(Type, data):
@@ -44,4 +48,9 @@ func create_repeat_until(data):
 			node.status_to_stop = BT_RepeatUntil.EndStatus.SUCCESS
 		"failure":
 			node.status_to_stop = BT_RepeatUntil.EndStatus.FAILURE
+	return node
+
+func create_multi_update(data):
+	var node = create_decorator(BT_MultipleUpdates, data)
+	node.updates_per_update = data.attributes.get("updates", 1)
 	return node

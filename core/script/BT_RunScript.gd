@@ -13,8 +13,8 @@ func compile():
 	var source = "func foo():\n" + script_code
 	source = source.replace("\n", "\n\t")
 	source = "var data;var object\n" + source
-	#print("source:")
-	#print(source)
+#	print("source:")
+#	print(source)
 	
 	var Base = GDScript.new()
 	Base.source_code = source
