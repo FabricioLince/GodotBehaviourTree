@@ -7,12 +7,11 @@ var sc
 
 func set_code(code):
 	script_code = code
+	sc = null
 	#print("running script ", script_code)
 
 func compile():
-	var source = "func foo():\n" + script_code
-	source = source.replace("\n", "\n\t")
-	source = "var data;var object\n" + source
+	var source = "var data;var object\nfunc foo(): " + script_code
 #	print("source:")
 #	print(source)
 	

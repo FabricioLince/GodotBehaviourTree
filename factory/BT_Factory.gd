@@ -36,10 +36,14 @@ class ExtraFactory:
 		var node = BT_DebugPrint.new()
 		node.message = data.content
 		return node
+	
 	func create_run_script(data):
 		var node = BT_RunScript.new()
-		node.script_code = data.content
+		node.script_code = format_code(data.content)
 		return node
+	func format_code(code):
+		return code.replace("\n", "\n\t")
+	
 	func create_set_data(data):
 		var node = BT_SetData.new()
 		node.data_values = data.attributes
