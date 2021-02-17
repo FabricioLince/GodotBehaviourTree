@@ -31,6 +31,8 @@ class ExtraFactory:
 				return create_set_data(data)
 			"isdata":
 				return create_is_data(data)
+			"call":
+				return create_call_function(data)
 	
 	func create_print(data):
 		var node = BT_DebugPrint.new()
@@ -43,6 +45,14 @@ class ExtraFactory:
 		return node
 	func format_code(code):
 		return code.replace("\n", "\n\t")
+	
+	func create_call_function(data):
+		var node = BT_CallFunction.new()
+		node.target_path = data.attributes.get("path", ".")
+		node.target = data.attributes.get("object")
+		node.function_name = data.attributes.function
+		node.parameters = data.attributes.get("params", [])
+		return node
 	
 	func create_set_data(data):
 		var node = BT_SetData.new()
