@@ -4,11 +4,15 @@ extends BT_Composite
 func update():
 	if cur >= children.size():
 		status = Status.SUCCESS
-	else:
-		var c = current_child()
-		if c.status == Status.SUCCESS:
-			cur += 1
-		elif c.status == Status.FAILURE:
-			status = Status.FAILURE
-		else:
-			c.update()
+	
+	var c = children[cur]
+	if not c.is_done():
+		c.update()
+	
+	if c.status == Status.SUCCESS:
+		cur += 1
+	elif c.status == Status.FAILURE:
+		status = Status.FAILURE
+	
+	if cur >= children.size():
+		status = Status.SUCCESS

@@ -4,7 +4,7 @@ extends Node
 export (NodePath) var runner_object_path = ".."
 export (NodePath) var behavior_tree_path
 var tree_node
-export (bool) var reset_on_done = true
+export (bool) var reset_when_done = true
 
 func _ready():
 	if behavior_tree_path:
@@ -19,14 +19,14 @@ func _ready():
 	else:
 		if runner_object_path:
 			tree_node.runner_object = get_node(runner_object_path)
-			print("runner object: ", str(runner_object_path), " - ", tree_node.runner_object.name)
+			#print("runner object: ", str(runner_object_path), " - ", tree_node.runner_object.name)
 		else:
 			tree_node.runner_object = get_node(".")
 
 func _process(_delta):
 	if tree_node:
 		if tree_node.is_done():
-			if reset_on_done:
+			if reset_when_done:
 				tree_node.reset()
 		else:
 			tree_node.update()

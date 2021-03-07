@@ -6,7 +6,7 @@ var cur = 0
 
 func _ready():
 	for c in get_children():
-		if is_behavior_tree_node(c):
+		if is_behavior_tree_node(c) and not c in children:
 			children.append(c)
 
 func reset():
